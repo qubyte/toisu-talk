@@ -23,4 +23,4 @@ app.post('/navigate/backward', (req, res) => {
   res.status(204).end();
 });
 
-http.createServer(app).listen(process.env.port || 3000, () => console.log('listening'));
+http.createServer(app).listen(process.env.PORT || 3000, () => console.log('listening'));
