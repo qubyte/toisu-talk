@@ -1,54 +1,56 @@
-const backKey = 37;
-const backSpaceKey = 8;
-const forwardKey = 39;
-const spaceKey = 32;
+(function() {
+  const backKey = 37;
+  const backSpaceKey = 8;
+  const forwardKey = 39;
+  const spaceKey = 32;
 
-const content = [
-  '<h1>async @ async</h1>',
-  '<h1>Test 1</h1>',
-  '<h1>Test 2</h1>'
-]
+  const content = [
+    '<h1>async @ async</h1>',
+    '<h1>Test 1</h1>',
+    '<h1>Test 2</h1>'
+  ]
 
-const domain = document.location
-
-function setPageContent(index) {
-  document.body.innerHTML = content[index];
-}
-
-function navigate(by) {
-  const index = (parseInt(document.location.hash.slice(1), 10) || 0) + by;
-
-  if (index < 0) {
-    return;
+  function setPageContent(index) {
+    document.body.innerHTML = content[index];
   }
 
-  history.pushState({index}, '', `#${index}`);
-  setPageContent(index);
-}
+  function navigate(by) {
+    const index = (parseInt(document.location.hash.slice(1), 10) || 0) + by;
 
-window.addEventListener('popstate', evt => {
-  if (typeof evt.state === 'number') {
-    setPageContent(evt.state.index || 0);
+    if (index < 0) {
+      return;
+    }
+
+    history.pushState({index}, '', `#${index}`);
+    setPageContent(index);
   }
-});
 
-document.addEventListener('keyup', evt => {
-  switch (evt.keyCode) {
-    case backKey:
-    case backSpaceKey:
-      navigate(-1);
-      break;
+  window.addEventListener('popstate', evt => {
+    const index = evt.state.index;
 
-    case forwardKey:
-    case spaceKey:
-      navigate(+1);
-      break;
+    if (typeof index === 'number' && !isNaN(index)) {
+      setPageContent(evt.state.index);
+    }
+  });
 
-    default:
-      console.log(evt.keyCode);
-  }
-});
+  document.addEventListener('keyup', evt => {
+    switch (evt.keyCode) {
+      case backKey:
+      case backSpaceKey:
+        navigate(-1);
+        break;
 
-new EventSource('/emitter').addEventListener('navigate', evt => navigate(JSON.parse(evt.data).by));
+      case forwardKey:
+      case spaceKey:
+        navigate(+1);
+        break;
 
-navigate(0);
+      default:
+        console.log(evt.keyCode);
+    }
+  });
+
+  new EventSource('/emitter').addEventListener('navigate', evt => navigate(JSON.parse(evt.data).by));
+
+  navigate(0);
+}());
