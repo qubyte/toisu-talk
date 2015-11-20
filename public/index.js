@@ -49,4 +49,9 @@ document.addEventListener('keyup', evt => {
   }
 });
 
+const evtsrc = new EventSource('/emitter');
+
+evtsrc.addEventListener('forward', () => navigate(1));
+evtsrc.addEventListener('backward', () => navigate(-1));
+
 navigate(0);
