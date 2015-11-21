@@ -8,7 +8,9 @@ const EventEmitter = require('events');
 
 const app = express();
 const navEmitter = new EventEmitter();
-const navEmitterRelay = nudge(navEmitter, {navigate: true});
+const navEmitterRelay = nudge(navEmitter, {navigate: true, heartbeat: true});
+
+setInterval(() => navEmitter.emit('heartbeat'), 30000);
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
