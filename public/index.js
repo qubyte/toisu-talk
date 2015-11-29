@@ -1,10 +1,10 @@
-(function() {
-  const backKey = 37;
-  const backSpaceKey = 8;
-  const forwardKey = 39;
-  const spaceKey = 32;
+(function () {
+  var backKey = 37;
+  var backSpaceKey = 8;
+  var forwardKey = 39;
+  var spaceKey = 32;
 
-  const content = [
+  var content = [
     '<h1>async @ async</h1>',
     '<h1>Test 1</h1>',
     '<h1>Test 2</h1>'
@@ -15,25 +15,25 @@
   }
 
   function navigate(by) {
-    const index = (parseInt(document.location.hash.slice(1), 10) || 0) + by;
+    var index = (parseInt(document.location.hash.slice(1), 10) || 0) + by;
 
     if (index < 0) {
       return;
     }
 
-    history.pushState({index}, '', `#${index}`);
+    history.pushState({index: index}, '', '#' + index);
     setPageContent(index);
   }
 
-  window.addEventListener('popstate', evt => {
-    const index = evt.state.index;
+  window.addEventListener('popstate', function (evt) {
+    var index = evt.state.index;
 
     if (typeof index === 'number' && !isNaN(index)) {
       setPageContent(evt.state.index);
     }
   });
 
-  document.addEventListener('keyup', evt => {
+  document.addEventListener('keyup', function (evt) {
     switch (evt.keyCode) {
       case backKey:
       case backSpaceKey:
@@ -50,7 +50,9 @@
     }
   });
 
-  new EventSource('/emitter').addEventListener('navigate', evt => navigate(JSON.parse(evt.data).by));
+  new EventSource('/emitter').addEventListener('navigate', function (evt) {
+    navigate(JSON.parse(evt.data).by);
+  });
 
   navigate(0);
 }());
