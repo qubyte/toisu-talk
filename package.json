@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "body-parser": "1.14.1",
-    "express": "4.13.3",
-    "nudge": "0.2.0"
+    "nudge": "0.3.0",
+    "toisu": "2.0.0",
+    "toisu-router": "1.0.2"
   }
 }
