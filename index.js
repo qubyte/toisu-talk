@@ -28,6 +28,28 @@ router.add('get', '/index.js', function (req, res) {
   res.end(indexJs);
 });
 
+router.add('post', '/navigate', function (req, res) {
+  var body = '';
+
+  req.on('data', data => body += data);
+
+  req.on('end', () => {
+    let parsedBody;
+
+    try {
+      parsedBody = JSON.parse(body);
+    } catch (e) {
+      res.statusCode = 500;
+      res.end();
+      return;
+    }
+
+    navEmitter.emit('navigate', {by: parsedBody.by});
+    res.statusCode = 204;
+    res.end();
+  });
+});
+
 router.add('get', '/emitter', navEmitterRelay);
 
 const app = new Toisu();
