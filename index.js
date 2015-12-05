@@ -3,8 +3,8 @@
 const Toisu = require('toisu');
 const ToisuRouter = require('toisu-router');
 const body = require('toisu-body');
+const serveStatic = require('toisu-static');
 const http = require('http');
-const staticController = require('./controllers/static');
 const navigateController = require('./controllers/navigate');
 const serverEvents = require('./lib/serverEvents');
 const nudge = require('nudge');
@@ -15,7 +15,7 @@ const server = http.createServer(app.requestHandler);
 
 router.add('post', '/navigate', body.json(), navigateController);
 router.add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}));
-router.add('get', '/*', staticController);
+router.add('get', '/*', serveStatic('public'));
 
 app.use(router.middleware);
 
