@@ -5,13 +5,13 @@
   var spaceKey = 32;
 
   var content = [
-    '<h1>async @ async</h1>',
-    '<h1>Test 1</h1>',
-    '<h1>Test 2</h1>'
+    '<div><h1>async @ async</h1></div>',
+    '<div><h1>Test 1</h1></div>',
+    '<div><h1>Test 2</h1></div>'
   ]
 
   function setPageContent(index) {
-    document.body.innerHTML = content[index];
+    document.getElementById('slides').innerHTML = content[index];
   }
 
   function navigate(by) {
