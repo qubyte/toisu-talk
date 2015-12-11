@@ -1,18 +1,24 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
+* { margin: 0; padding: 0; }
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #f7df1e;
+  height: 100vh;
 }
 
 .wrap {
    margin: auto;
    width: 1180px;
    overflow: hidden; /* because children will be floated */
+   position: relative;
+   top: 50%;
+   transform: translateY(-50%);
 }
 
 #slides > div {
-    height: 600px;
+    height: 100%;
     width: 1180px;
     float: left;
     margin-right: 200px;
