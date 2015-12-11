@@ -1,3 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f7df1e;
+}
+
 .wrap {
    margin: auto;
    width: 1180px;
@@ -11,8 +18,8 @@
     margin-right: 200px;
     text-align: center;
 
-        /* Flexible Box Model */
-        display: -webkit-box;
+    /* Flexible Box Model */
+    display: -webkit-box;
     -webkit-box-align: center;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
@@ -21,4 +28,8 @@
     box-align: center;
     box-orient: horizontal;
     box-pack: center;
+}
+
+h1 {
+  font-size: 5em
 }

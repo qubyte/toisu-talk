@@ -6,8 +6,8 @@
 
   var content = [
     '<div><h1>async @ async</h1></div>',
-    '<div><h1>Test 1</h1></div>',
-    '<div><h1>Test 2</h1></div>'
+    '<div><h1>promises</h1></div>',
+    '<div><h1>generators</h1></div>'
   ]
 
   function setPageContent(index) {
