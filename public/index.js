@@ -17,7 +17,7 @@
   function setPageContent(index) {
     return fetch(makeFragmentUrl(index))
       .then(res => res.text())
-      .then(content => document.getElementById('slides').innerHTML = content)
+      .then(content => document.body.innerHTML = content)
       .then(prettyPrint)
       .then(() => console.log(self.notes));
   }
