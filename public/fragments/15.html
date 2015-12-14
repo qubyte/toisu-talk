@@ -1,0 +1,22 @@
+<div>
+  <pre class="prettyprint lang-js">function fetchBlogPost(id) {
+  return fetch('/posts/' + id)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Unexpected status code: ' + res.status);
+      }
+
+      return res.text();
+    });
+}
+
+async function fetchBlogPost(id) {
+  var res = await fetch('/posts/' + id);
+
+  if (!res.ok) {
+    throw new Error('Unexpected status code: ' + res.status);
+  }
+
+  return res.text();
+}</pre>
+</div>

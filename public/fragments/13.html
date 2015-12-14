@@ -1,0 +1,14 @@
+<div><h2>example</h2></div>
+<div><pre class="prettyprint lang-js">function checkForBadResponse(response) {
+  if (!response.ok) {
+    throw new Error('Unexpected response status.');
+  }
+
+  return response;
+}
+
+fetch('some/url.json')
+  .then(checkForBadResponse)
+  .then(response => response.json())
+  .then(data => console.log(data));
+  .catch(err => console.error(err.stack));</pre></div>

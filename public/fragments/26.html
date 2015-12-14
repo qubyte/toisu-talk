@@ -1,0 +1,19 @@
+<div><pre class="prettyprint lang-js">async function dynamicWaterfall(funcs, init) {
+  let result = init;
+
+  for (const func of funcs) {
+    result = await func(result);
+  }
+
+  return result;
+}
+
+function dynamicWaterfall(funcs, init) {
+  let promise = Promise.resolve(init);
+
+  for (const func of funcs) {
+    promise = promise.then(result => func(result));
+  }
+
+  return promise;
+}</pre></div>

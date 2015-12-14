@@ -1,0 +1,15 @@
+<div><pre class="prettyprint lang-js">async function behaviour4() {
+  try {
+    consolve.log('Success!', await somePromise);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+}
+
+// is the same as
+
+function behaviour4() {
+  return somePromise
+    .then(result => console.log('Success!', result))
+    .catch(e => console.error('Error!', e));
+}</pre></div>

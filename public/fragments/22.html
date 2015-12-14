@@ -1,0 +1,13 @@
+<div><pre class="prettyprint lang-js">async function behaviour3() {
+  var someValue = await somePromise;
+
+  return 'The result was ' + someValue;
+}
+
+// is the same as
+
+function behaviour3() {
+  return somePromise.then(function (someValue) {
+    return 'The result was ' + someValue;
+  });
+}</pre></div>

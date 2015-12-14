@@ -1,0 +1,11 @@
+<div><pre class="prettyprint lang-js">const log = text => console.log(text);
+
+new Promise(resolve => resolve(1)).then(log);
+log(2);
+// 2
+// 1
+
+Promise.resolve(1).then(log);
+log(2);
+// 2
+// 1</pre></div>

@@ -1,0 +1,19 @@
+<div><pre class="prettyprint lang-js">var co = require('co');
+
+var anAsyncFunc = co.wrap(function* () {
+  try {
+    consolve.log('Success!', yield somePromise);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+}
+
+// is the same as
+
+var anAsyncFunc = async function () {
+  try {
+    consolve.log('Success!', await somePromise);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+}</pre></div>

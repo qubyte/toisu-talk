@@ -11,10 +11,16 @@ body {
   height: 100vh;
 }
 
+pre {
+  font-size: 2em;
+  text-align: left;
+  background-color: #FFFFFF;
+}
+
 .wrap {
   margin: auto;
   width: 100vw;
-  overflow: hidden; /* because children will be floated */
+  overflow: hidden;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -40,5 +46,14 @@ body {
 }
 
 h1 {
-  font-size: 5em
+  font-size: 5em;
+}
+
+h2 {
+  font-size: 3em;
+}
+
+ul {
+  font-size: 2em;
+  text-align: left;
 }

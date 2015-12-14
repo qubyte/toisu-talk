@@ -4,14 +4,22 @@
   var forwardKey = 39;
   var spaceKey = 32;
 
-  var content = [
-    '<div><h1>async @ async</h1></div>',
-    '<div><h1>promises</h1></div>',
-    '<div><h1>generators</h1></div>'
-  ]
+  function makeFragmentUrl(num) {
+    var str = num.toString();
+
+    while (str.length < 2) {
+      str = '0' + str;
+    }
+
+    return 'fragments/' + str + '.html';
+  }
 
   function setPageContent(index) {
-    document.getElementById('slides').innerHTML = content[index];
+    return fetch(makeFragmentUrl(index))
+      .then(res => res.text())
+      .then(content => document.getElementById('slides').innerHTML = content)
+      .then(prettyPrint)
+      .then(() => console.log(self.notes));
   }
 
   function navigate(by) {

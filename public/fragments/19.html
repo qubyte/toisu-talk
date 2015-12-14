@@ -1,0 +1,9 @@
+<div><pre class="prettyprint lang-js">async function behaviour2() {
+  throw anError;
+}
+
+// is the same as
+
+function behaviour2() {
+  return Promise.reject(anError);
+}</pre></div>
