@@ -37,7 +37,7 @@
     var index = evt.state.index;
 
     if (typeof index === 'number' && !isNaN(index)) {
-      setPageContent(evt.state.index);
+      setPageContent(index);
     }
   });
 
