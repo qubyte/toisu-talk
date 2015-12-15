@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "nudge": "0.3.0",
-    "toisu": "2.1.0",
+    "toisu": "2.2.0",
     "toisu-body": "1.0.1",
-    "toisu-router": "1.0.2",
+    "toisu-router": "1.1.0",
     "toisu-static": "1.0.0"
   }
 }

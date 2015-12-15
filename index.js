@@ -1,22 +1,21 @@
 'use strict';
 
+const http = require('http');
 const Toisu = require('toisu');
 const ToisuRouter = require('toisu-router');
 const body = require('toisu-body');
 const serveStatic = require('toisu-static');
-const http = require('http');
+const nudge = require('nudge');
 const navigateController = require('./controllers/navigate');
 const serverEvents = require('./lib/serverEvents');
-const nudge = require('nudge');
 
-const app = new Toisu();
-const router = new ToisuRouter();
-const server = http.createServer(app.requestHandler);
+const router = new ToisuRouter()
+  .add('post', '/navigate', body.json(), navigateController)
+  .add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}))
+  .add('get', '/*', serveStatic('public'));
 
-router.add('post', '/navigate', body.json(), navigateController);
-router.add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}));
-router.add('get', '/*', serveStatic('public'));
+const app = new Toisu()
+  .use(router.middleware);
 
-app.use(router.middleware);
-
-server.listen(process.env.PORT || 3000, () => console.log('listening'));
+http.createServer(app.requestHandler)
+  .listen(process.env.PORT || 3000, () => console.log('listening'));
