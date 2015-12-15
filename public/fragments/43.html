@@ -1,0 +1,20 @@
+<div>
+  <h2>Toisu! server</h2>
+  <pre class="prettyprint lang-js">function checkAccess(req, res) {
+  return getAccess(req).then(authed => {
+    if (!authed) {
+      res.status(401).end();
+    }
+  });
+}
+
+const app = new Toisu()
+  .use(checkAccess);
+  .use((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+    res.write('Hello, world!');
+    res.end();
+  });
+
+http.createServer(app).listen(3000);</pre>
+</div>

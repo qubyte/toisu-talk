@@ -1,0 +1,20 @@
+<div>
+  <h2>Toisu! server with async-await</h2>
+  <pre class="prettyprint lang-js">async function checkAccess(req, res) {
+  const authed = await getAccess(req);
+
+  if (!authed) {
+    res.status(401).end();
+  }
+}
+
+const app = new Toisu()
+  .use(checkAccess);
+  .use((req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+    res.write('Hello, world!');
+    res.end();
+  });
+
+http.createServer(app).listen(3000);</pre>
+</div>
