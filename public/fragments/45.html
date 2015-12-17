@@ -4,17 +4,14 @@
   const authed = await getAccess(req);
 
   if (!authed) {
-    res.status(401).end();
+    res.statusCode = 401;
+    res.end();
   }
 }
 
 const app = new Toisu()
   .use(checkAccess);
-  .use((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
-    res.write('Hello, world!');
-    res.end();
-  });
+  .use((req, res) => sendPlain(req, res, 'Hello, world!'));
 
-http.createServer(app).listen(3000);</pre>
+http.createServer(app.requestHandler).listen(3000);</pre>
 </div>

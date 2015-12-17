@@ -1,21 +1,17 @@
 <div>
-  <h2>this presentation</h2>
-  <pre class="prettyprint lang-js" style="font-size: 1.5em">const http = require('http');
-const Toisu = require('toisu');
-const ToisuRouter = require('toisu-router');
-const body = require('toisu-body');
-const serveStatic = require('toisu-static');
-const nudge = require('nudge');
-const navigateController = require('./controllers/navigate');
-const serverEvents = require('./lib/serverEvents');
+  <h2>controversial, <code>this</code> is an instance of <code>Map</code></h2>
+  <pre class="prettyprint lang-js">async function setMessage(req, res) {
+  this.set('message', await someApi.getMessage());
+}
 
-const router = new ToisuRouter()
-  .add('post', '/navigate', body.json(), navigateController)
-  .add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}))
-  .add('get', '/*', serveStatic('public'));
+function sendMessage(req, res) {
+  sendPlain(req, res, this.get('message')));
+}
 
 const app = new Toisu()
-  .use(router.middleware);
+  .use(checkAccess);
+  .use(setMessage);
+  .use(sendMessage);
 
-http.createServer(app.requestHandler).listen(3000));</pre>
+http.createServer(app.requestHandler).listen(3000);</pre>
 </div>

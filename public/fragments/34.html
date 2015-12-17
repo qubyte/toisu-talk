@@ -6,7 +6,7 @@ var anAsyncFunc = co.wrap(function* () {
   } catch (e) {
     console.error('Error!', e);
   }
-}
+});
 
 // is the same as
 
@@ -16,4 +16,4 @@ var anAsyncFunc = async function () {
   } catch (e) {
     console.error('Error!', e);
   }
-}</pre>
+};</pre>

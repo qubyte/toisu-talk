@@ -1,6 +1,8 @@
 <pre class="prettyprint lang-js">async function behaviour4() {
   try {
-    consolve.log('Success!', await somePromise);
+    const result = await somePromise;
+
+    console.log('Success!', result);
   } catch (e) {
     console.error('Error!', e);
   }
