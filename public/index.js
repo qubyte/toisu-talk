@@ -15,11 +15,15 @@
   }
 
   function setPageContent(index) {
-    return fetch(makeFragmentUrl(index))
-      .then(res => res.text())
-      .then(content => document.body.innerHTML = content)
-      .then(prettyPrint)
-      .then(() => console.log(self.notes));
+    var request = new XMLHttpRequest();
+
+    request.onload = function () {
+      document.body.innerHTML = this.responseText;
+      prettyPrint();
+    };
+
+    request.open('GET', makeFragmentUrl(index));
+    request.send();
   }
 
   function navigate(by) {
@@ -34,7 +38,7 @@
   }
 
   window.addEventListener('popstate', function (evt) {
-    var index = evt.state.index;
+    var index = evt.state && evt.state.index;
 
     if (typeof index === 'number' && !isNaN(index)) {
       setPageContent(index);
