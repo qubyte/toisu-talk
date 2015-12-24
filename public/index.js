@@ -5,16 +5,6 @@
   var spaceKey = 32;
   var templates = Array.prototype.slice.call(document.getElementsByTagName('template'));
 
-  function makeFragmentUrl(num) {
-    var str = num.toString();
-
-    while (str.length < 2) {
-      str = '0' + str;
-    }
-
-    return 'fragments/' + str + '.html';
-  }
-
   function setPageContent(index) {
     var template = templates[index];
 
