@@ -34,15 +34,15 @@
       <h2>promises can be constructed</h2>
       <pre class="prettyprint lang-js">var fileReadPromise = new Promise((resolve, reject) => {
 
-      fs.readFile(path, options, (err, result) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
+  fs.readFile(path, options, (err, result) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(result);
+    }
+  });
 
-    });</pre>
+});</pre>
     </div>
   </template>
 
@@ -53,15 +53,15 @@
   <template>
     <pre class="prettyprint lang-js">const log = text => console.log(text);
 
-    new Promise(resolve => resolve(1)).then(log);
-    log(2);
-    // 2
-    // 1
+new Promise(resolve => resolve(1)).then(log);
+log(2);
+// 2
+// 1
 
-    Promise.resolve(1).then(log);
-    log(2);
-    // 2
-    // 1</pre>
+Promise.resolve(1).then(log);
+log(2);
+// 2
+// 1</pre>
   </template>
 
   <template>
@@ -95,13 +95,13 @@
     <div>
       <h2>example</h2>
       <pre class="prettyprint lang-js">var allDonePromise = somePromise
-      .then(resolvedA, rejectedA)
-      .then(resolvedB)
-      .then(resolvedC, rejectedC)
-      .then(resolvedD)
-      .then()
-      .then(resolvedE)
-      .catch(rejectedF);</pre>
+  .then(resolvedA, rejectedA)
+  .then(resolvedB)
+  .then(resolvedC, rejectedC)
+  .then(resolvedD)
+  .then()
+  .then(resolvedE)
+  .catch(rejectedF);</pre>
     </div>
   </template>
 
@@ -111,34 +111,34 @@
 
   <template>
     <pre class="prettyprint lang-js">Promise.resolve = function (value) {
-      if (value instanceof Promise) {
-        return value;
-      }
+  if (value instanceof Promise) {
+    return value;
+  }
 
-      if (value && typeof value.then === 'function') {
-        return new Promise((resolve, reject) => value.then(resolve, reject));
-      }
+  if (value && typeof value.then === 'function') {
+    return new Promise((resolve, reject) => value.then(resolve, reject));
+  }
 
-      return new Promise(resolve => resolve(value));
-    }</pre>
+  return new Promise(resolve => resolve(value));
+}</pre>
   </template>
 
   <template>
     <div>
       <h2>example</h2>
-      <pre class="prettyprint lang-js">function checkForBadResponse(response) {
-      if (!response.ok) {
-        throw new Error('Unexpected response status.');
-      }
+        <pre class="prettyprint lang-js">function checkForBadResponse(response) {
+  if (!response.ok) {
+    throw new Error('Unexpected response status.');
+  }
 
-      return response;
-    }
+  return response;
+}
 
-    fetch('some/url.json')
-      .then(checkForBadResponse)
-      .then(response => response.json())
-      .then(data => console.log(data));
-      .catch(err => console.error(err.stack));</pre>
+fetch('some/url.json')
+  .then(checkForBadResponse)
+  .then(response => response.json())
+  .then(data => console.log(data));
+  .catch(err => console.error(err.stack));</pre>
     </div>
   </template>
 
@@ -152,14 +152,14 @@
 
   <template>
     <pre class="prettyprint lang-js">async function behaviour1() {
-      return 'hello';
-    }
+  return 'hello';
+}
 
-    // is the same as
+// is the same as
 
-    function behaviour1() {
-      return Promise.resolve('hello');
-    }</pre>
+function behaviour1() {
+  return Promise.resolve('hello');
+}</pre>
   </template>
 
   <template>
@@ -168,14 +168,14 @@
 
   <template>
     <pre class="prettyprint lang-js">async function behaviour2() {
-      throw anError;
-    }
+  throw anError;
+}
 
-    // is the same as
+// is the same as
 
-    function behaviour2() {
-      return Promise.reject(anError);
-    }</pre>
+function behaviour2() {
+  return Promise.reject(anError);
+}</pre>
   </template>
 
   <template>
@@ -188,18 +188,18 @@
 
   <template>
     <pre class="prettyprint lang-js">async function behaviour3() {
-      const someValue = await somePromise;
+  const someValue = await somePromise;
 
-      return 'The result was ' + someValue;
-    }
+  return 'The result was ' + someValue;
+}
 
-    // is the same as
+// is the same as
 
-    function behaviour3() {
-      return somePromise.then(someValue => {
-        return 'The result was ' + someValue;
-      });
-    }</pre>
+function behaviour3() {
+  return somePromise.then(someValue => {
+    return 'The result was ' + someValue;
+  });
+}</pre>
   </template>
 
   <template>
@@ -212,39 +212,39 @@
 
   <template>
     <pre class="prettyprint lang-js">async function behaviour4() {
-      try {
-        const result = await somePromise;
+  try {
+    const result = await somePromise;
 
-        console.log('Success!', result);
-      } catch (e) {
-        console.error('Error!', e);
-      }
-    }
+    console.log('Success!', result);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+}
 
-    // is the same as
+// is the same as
 
-    function behaviour4() {
-      return somePromise
-        .then(result => console.log('Success!', result))
-        .catch(e => console.error('Error!', e));
-    }</pre>
+function behaviour4() {
+  return somePromise
+    .then(result => console.log('Success!', result))
+    .catch(e => console.error('Error!', e));
+}</pre>
   </template>
 
   <template>
     <div>
       <h2>series flow control (before)</h2>
       <pre class="prettyprint lang-js">function inSequence(funcs) {
-      const results = [];
-      let promise = Promise.resolve();
+  const results = [];
+  let promise = Promise.resolve();
 
-      for (const func of funcs) {
-        promise = promise
-          .then(() => func())
-          .then(result => results.push(result));
-      }
+  for (const func of funcs) {
+    promise = promise
+      .then(() => func())
+      .then(result => results.push(result));
+  }
 
-      return promise.then(() => results);
-    }
+  return promise.then(() => results);
+}
     </pre>
     </div>
   </template>
@@ -253,14 +253,14 @@
     <div>
       <h2>series flow control (after)</h2>
       <pre class="prettyprint lang-js">async function inSequence(funcs) {
-      const results = [];
+  const results = [];
 
-      for (const func of funcs) {
-        results.push(await func());
-      }
+  for (const func of funcs) {
+    results.push(await func());
+  }
 
-      return results
-    }</pre>
+  return results;
+}</pre>
     </div>
   </template>
 
@@ -291,53 +291,53 @@
   <template>
     <pre class="prettyprint lang-js">var co = require('co');
 
-    var anAsyncFunc = co.wrap(function* () {
-      try {
-        consolve.log('Success!', yield somePromise);
-      } catch (e) {
-        console.error('Error!', e);
-      }
-    });
+var anAsyncFunc = co.wrap(function* () {
+  try {
+    consolve.log('Success!', yield somePromise);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+});
 
-    // is the same as
+// is the same as
 
-    var anAsyncFunc = async function () {
-      try {
-        consolve.log('Success!', await somePromise);
-      } catch (e) {
-        console.error('Error!', e);
-      }
-    };</pre>
+var anAsyncFunc = async function () {
+  try {
+    consolve.log('Success!', await somePromise);
+  } catch (e) {
+    console.error('Error!', e);
+  }
+};</pre>
   </template>
 
   <template>
     <pre class="prettyprint lang-js" style="font-size: 1.5em">var anAsyncFunc = function anAsyncFunc() {
-      return regeneratorRuntime.async(function anAsyncFunc$(context$1$0) {
-        while (1) switch (context$1$0.prev = context$1$0.next) {
-          case 0:
-            context$1$0.prev = 0;
-            context$1$0.t0 = consolve;
-            context$1$0.next = 4;
-            return regeneratorRuntime.awrap(somePromise);
+  return regeneratorRuntime.async(function anAsyncFunc$(context$1$0) {
+    while (1) switch (context$1$0.prev = context$1$0.next) {
+      case 0:
+        context$1$0.prev = 0;
+        context$1$0.t0 = consolve;
+        context$1$0.next = 4;
+        return regeneratorRuntime.awrap(somePromise);
 
-          case 4:
-            context$1$0.t1 = context$1$0.sent;
-            context$1$0.t0.log.call(context$1$0.t0, 'Success!', context$1$0.t1);
-            context$1$0.next = 11;
-            break;
+      case 4:
+        context$1$0.t1 = context$1$0.sent;
+        context$1$0.t0.log.call(context$1$0.t0, 'Success!', context$1$0.t1);
+        context$1$0.next = 11;
+        break;
 
-          case 8:
-            context$1$0.prev = 8;
-            context$1$0.t2 = context$1$0['catch'](0);
+      case 8:
+        context$1$0.prev = 8;
+        context$1$0.t2 = context$1$0['catch'](0);
 
-            console.error('Error!', context$1$0.t2);
+        console.error('Error!', context$1$0.t2);
 
-          case 11:
-          case 'end':
-            return context$1$0.stop();
-        }
-      }, null, this, [[0, 8]]);
-    };</pre>
+      case 11:
+      case 'end':
+        return context$1$0.stop();
+    }
+  }, null, this, [[0, 8]]);
+};</pre>
   </template>
 
   <template>
@@ -352,10 +352,10 @@
     <div>
       <h2>vanilla node server</h2>
       <pre class="prettyprint lang-js">function requestHandler(req, res) {
-      sendPlain(req, res, 'Hello, world!'))
-    }
+  sendPlain(req, res, 'Hello, world!'))
+}
 
-    http.createServer(requestHandler).listen(3000);</pre>
+http.createServer(requestHandler).listen(3000);</pre>
     </div>
   </template>
 
@@ -363,22 +363,22 @@
     <div>
       <h2>express server</h2>
       <pre class="prettyprint lang-js">function checkAccess(req, res, next) {
-      getAccess(req, (err, authorized) => {
-        if (err) {
-          res.status(500).end();
-        } else if (!authorized) {
-          res.status(401).end();
-        } else {
-          next();
-        }
-      });
+  getAccess(req, (err, authorized) => {
+    if (err) {
+      res.status(500).end();
+    } else if (!authorized) {
+      res.status(401).end();
+    } else {
+      next();
     }
+  });
+}
 
-    const app = express()
-      .use(checkAccess);
-      .use((req, res) => res.send('Hello, world!'));
+const app = express()
+  .use(checkAccess);
+  .use((req, res) => res.send('Hello, world!'));
 
-    http.createServer(app).listen(3000);</pre>
+http.createServer(app).listen(3000);</pre>
     </div>
   </template>
 
@@ -401,19 +401,19 @@
     <div>
       <h2>Toisu! server</h2>
       <pre class="prettyprint lang-js">function checkAccess(req, res) {
-      return getAccess(req).then(authed => {
-        if (!authed) {
-          res.statusCode = 401;
-          res.end();
-        }
-      });
+  return getAccess(req).then(authed => {
+    if (!authed) {
+      res.statusCode = 401;
+      res.end();
     }
+  });
+}
 
-    const app = new Toisu()
-      .use(checkAccess);
-      .use((req, res) => sendPlain(req, res, 'Hello, world!'));
+const app = new Toisu()
+  .use(checkAccess);
+  .use((req, res) => sendPlain(req, res, 'Hello, world!'));
 
-    http.createServer(app.requestHandler).listen(3000);</pre>
+http.createServer(app.requestHandler).listen(3000);</pre>
     </div>
   </template>
 
@@ -425,19 +425,19 @@
     <div>
       <h2>Toisu! server with async-await</h2>
       <pre class="prettyprint lang-js">async function checkAccess(req, res) {
-      const authed = await getAccess(req);
+  const authed = await getAccess(req);
 
-      if (!authed) {
-        res.statusCode = 401;
-        res.end();
-      }
-    }
+  if (!authed) {
+    res.statusCode = 401;
+    res.end();
+  }
+}
 
-    const app = new Toisu()
-      .use(checkAccess);
-      .use((req, res) => sendPlain(req, res, 'Hello, world!'));
+const app = new Toisu()
+  .use(checkAccess);
+  .use((req, res) => sendPlain(req, res, 'Hello, world!'));
 
-    http.createServer(app.requestHandler).listen(3000);</pre>
+http.createServer(app.requestHandler).listen(3000);</pre>
     </div>
   </template>
 
@@ -445,19 +445,19 @@
     <div>
       <h2>controversial, <code>this</code> is an instance of <code>Map</code></h2>
       <pre class="prettyprint lang-js">async function setMessage(req, res) {
-      this.set('message', await someApi.getMessage());
-    }
+  this.set('message', await someApi.getMessage());
+}
 
-    function sendMessage(req, res) {
-      sendPlain(req, res, this.get('message')));
-    }
+function sendMessage(req, res) {
+  sendPlain(req, res, this.get('message')));
+}
 
-    const app = new Toisu()
-      .use(checkAccess);
-      .use(setMessage);
-      .use(sendMessage);
+const app = new Toisu()
+  .use(checkAccess);
+  .use(setMessage);
+  .use(sendMessage);
 
-    http.createServer(app.requestHandler).listen(3000);</pre>
+http.createServer(app.requestHandler).listen(3000);</pre>
     </div>
   </template>
 
@@ -465,23 +465,23 @@
     <div>
       <h2>this presentation</h2>
       <pre class="prettyprint lang-js" style="font-size: 1.5em">const http = require('http');
-    const Toisu = require('toisu');
-    const ToisuRouter = require('toisu-router');
-    const body = require('toisu-body');
-    const serveStatic = require('toisu-static');
-    const nudge = require('nudge');
-    const navigateController = require('./controllers/navigate');
-    const serverEvents = require('./lib/serverEvents');
+const Toisu = require('toisu');
+const ToisuRouter = require('toisu-router');
+const body = require('toisu-body');
+const serveStatic = require('toisu-static');
+const nudge = require('nudge');
+const navigateController = require('./controllers/navigate');
+const serverEvents = require('./lib/serverEvents');
 
-    const router = new ToisuRouter()
-      .add('post', '/navigate', body.json(), navigateController)
-      .add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}))
-      .add('get', '/*', serveStatic('public'));
+const router = new ToisuRouter()
+  .add('post', '/navigate', body.json(), navigateController)
+  .add('get', '/emitter', nudge(serverEvents, {navigate: true, heartbeat: true}))
+  .add('get', '/*', serveStatic('public'));
 
-    const app = new Toisu()
-      .use(router.middleware);
+const app = new Toisu()
+  .use(router.middleware);
 
-    http.createServer(app.requestHandler).listen(3000));</pre>
+http.createServer(app.requestHandler).listen(3000));</pre>
     </div>
   </template>
 
@@ -490,43 +490,43 @@
       <h2>Toisu!</h2>
       <pre class="prettyprint lang-js" style="font-size: 1em">'use strict';
 
-    const runner = require('toisu-middleware-runner');
-    const stacks = new WeakMap();
+const runner = require('toisu-middleware-runner');
+const stacks = new WeakMap();
 
-    class Toisu {
-      constructor() {
-        stacks.set(this, []);
-        this.handleError = Toisu.defaultHandleError;
-      }
+class Toisu {
+  constructor() {
+    stacks.set(this, []);
+    this.handleError = Toisu.defaultHandleError;
+  }
 
-      use(middleware) {
-        stacks.get(this).push(middleware);
-        return this;
-      }
+  use(middleware) {
+    stacks.get(this).push(middleware);
+    return this;
+  }
 
-      get requestHandler() {
-        return (req, res) => {
-          const stack = stacks.get(this);
-          const context = new Map();
+  get requestHandler() {
+    return (req, res) => {
+      const stack = stacks.get(this);
+      const context = new Map();
 
-          return runner.call(context, req, res, stack)
-            .then(() => {
-              if (!res.headersSent) {
-                res.statusCode = 404;
-                res.end();
-              }
-            })
-            .catch(error => this.handleError.call(context, req, res, error));
-        };
-      }
+      return runner.call(context, req, res, stack)
+        .then(() => {
+          if (!res.headersSent) {
+            res.statusCode = 404;
+            res.end();
+          }
+        })
+        .catch(error => this.handleError.call(context, req, res, error));
+    };
+  }
 
-      static defaultHandleError(req, res) {
-        res.statusCode = 502;
-        res.end();
-      }
-    }
+  static defaultHandleError(req, res) {
+    res.statusCode = 502;
+    res.end();
+  }
+}
 
-    module.exports = Toisu;</pre>
+module.exports = Toisu;</pre>
     </div>
   </template>
 
@@ -535,26 +535,26 @@
       <h2>toisu-middleware-runner</h2>
       <pre class="prettyprint lang-js" style="font-size: 1.5em">'use strict';
 
-    function runner(req, res, middlewares) {
-      var context = this;
+function runner(req, res, middlewares) {
+  var context = this;
 
-      function wrapper(index) {
-        var middleware = middlewares && middlewares[index];
+  function wrapper(index) {
+    var middleware = middlewares && middlewares[index];
 
-        if (!middleware || res.headersSent || !res.writable) {
-          return Promise.resolve();
-        }
-
-        return Promise.resolve(middleware.call(context, req, res))
-          .then(function () {
-            return wrapper(index + 1);
-          });
-      }
-
-      return wrapper(0);
+    if (!middleware || res.headersSent || !res.writable) {
+      return Promise.resolve();
     }
 
-    module.exports = runner;</pre>
+    return Promise.resolve(middleware.call(context, req, res))
+      .then(function () {
+        return wrapper(index + 1);
+      });
+  }
+
+  return wrapper(0);
+}
+
+module.exports = runner;</pre>
     </div>
   </template>
 
@@ -563,17 +563,17 @@
       <h2>(in async-await it would look like)</h2>
       <pre class="prettyprint lang-js">'use strict';
 
-    async function runner(req, res, middlewares) {
-        for (const middleware of middlewares) {
-            if (res.headersSent || !res.writable) {
-              return;
-            }
-
-            await middleware.call(this, req, res);
+async function runner(req, res, middlewares) {
+    for (const middleware of middlewares) {
+        if (res.headersSent || !res.writable) {
+          return;
         }
-    }
 
-    module.exports = runner;</pre>
+        await middleware.call(this, req, res);
+    }
+}
+
+module.exports = runner;</pre>
     </div>
   </template>
 
