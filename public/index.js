@@ -3,7 +3,8 @@
   var backSpaceKey = 8;
   var forwardKey = 39;
   var spaceKey = 32;
-  var templates = Array.prototype.slice.call(document.getElementsByTagName('template'));
+  var templates = document.getElementsByTagName('template');
+  var container;
 
   function setPageContent(index) {
     var template = templates[index];
@@ -12,9 +13,16 @@
       return;
     }
 
-    document.body.innerHTML = '';
-    document.body.appendChild(document.importNode(template.content, true));
+    var newContainer = document.createElement('div');
+    newContainer.appendChild(document.importNode(template.content, true));
 
+    if (container) {
+      document.body.replaceChild(newContainer, container);
+    } else {
+      document.body.appendChild(newContainer);
+    }
+
+    container = newContainer;
     prettyPrint();
   }
 
