@@ -8,6 +8,7 @@ const serveStatic = require('toisu-static');
 const nudge = require('nudge');
 const navigateController = require('./controllers/navigate');
 const serverEvents = require('./lib/serverEvents');
+const port = process.env.PORT || 3000;
 
 const router = new ToisuRouter()
   .add('post', '/navigate', body.json(), navigateController)
@@ -18,4 +19,4 @@ const app = new Toisu()
   .use(router.middleware);
 
 http.createServer(app.requestHandler)
-  .listen(process.env.PORT || 3000, () => console.log('listening'));
+  .listen(port, () => console.log(`listening on port ${port}.`));
