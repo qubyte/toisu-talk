@@ -21,7 +21,7 @@
   function navigate(by) {
     var index = (parseInt(document.location.hash.slice(1), 10) || 0) + by;
 
-    if (index < 0) {
+    if (index < 0 || index >= templates.length) {
       return;
     }
 
