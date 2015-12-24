@@ -3,6 +3,7 @@
   var backSpaceKey = 8;
   var forwardKey = 39;
   var spaceKey = 32;
+  var templates = Array.prototype.slice.call(document.getElementsByTagName('template'));
 
   function makeFragmentUrl(num) {
     var str = num.toString();
@@ -15,15 +16,16 @@
   }
 
   function setPageContent(index) {
-    var request = new XMLHttpRequest();
+    var template = templates[index];
 
-    request.onload = function () {
-      document.body.innerHTML = this.responseText;
-      prettyPrint();
-    };
+    if (!template) {
+      return;
+    }
 
-    request.open('GET', makeFragmentUrl(index));
-    request.send();
+    document.body.innerHTML = '';
+    document.body.appendChild(document.importNode(template.content, true));
+
+    prettyPrint();
   }
 
   function navigate(by) {
